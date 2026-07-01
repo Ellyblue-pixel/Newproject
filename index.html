@@ -1,1 +1,128 @@
 
+Ahh my bad bro 🙏 I’m still missing it.
+
+You don’t want to scroll down to see 5 cards.
+You want: *1 fixed city BG screen. Text changes in-place. 5 cards pop 1 after another in the same spot. Then `Get started` shows.*
+
+Like a slideshow on top of the city pic. No scrolling.
+
+*Fixed BG + 5 Cards That Replace Each Other + Pop*
+
+Copy this 1 file. Open it. It runs auto.
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProsperTech</title>
+<style>
+:root{--teal:#2dd4bf;--text:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;font-family:Inter,system-ui;color:var(--text)}
+
+/* 1. FIXED CITY BG - NEVER MOVES, NEVER SCROLLS */
+.bg{
+  position:fixed;inset:0;
+  background:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80') center/cover no-repeat;
+  filter:brightness(.5);
+}
+.bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,rgba(0,0,0,.85) 100%);
+}
+
+/* 2. CENTER STAGE - EVERYTHING POPS HERE */
+.stage{
+  position:relative;z-index:2;height:100%;display:grid;place-items:center;text-align:center;padding:20px;
+}
+
+/* 3. POP ANIMATION */
+.card{
+  position:absolute;max-width:700px;opacity:0;pointer-events:none;
+  transform:scale(.9) translateY(40px);filter:blur(12px);
+  transition:all.6s cubic-bezier(.22,1,.36,1);
+}
+.card.active{
+  opacity:1;pointer-events:auto;
+  transform:scale(1) translateY(0);filter:blur(0);
+}
+.tag{display:inline-block;padding:6px 14px;background:rgba(45,212,191,.15);border:1px solid rgba(45,212,191,.4);border-radius:999px;font-size:.8rem;letter-spacing:1px;margin-bottom:16px;}
+h1{font-size:clamp(3rem,10vw,6rem);font-weight:900;line-height:1}
+h1.teal{color:var(--teal)}
+h2{font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;margin-bottom:14px}
+p{font-size:1.15rem;color:#d1d5db;line-height:1.6;max-width:600px;margin:0 auto}
+.btn{margin-top:24px;padding:14px 28px;background:var(--teal);color:#000;border:0;border-radius:999px;font-weight:800;font-size:1.1rem;cursor:pointer;transition:.2s}
+.btn:hover{transform:scale(1.05)}
+.dots{position:absolute;bottom:40px;display:flex;gap:10px}
+.dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s}
+.dot.active{background:var(--teal);transform:scale(1.3)}
+</style></head><body>
+
+<div class="bg"></div>
+
+<div class="stage">
+
+  <!-- CARD 1: HERO -->
+  <div class="card active" data-i="0">
+    <div class="tag">DIGITAL EXPERIENCES</div>
+    <h1><span class="teal">PROSPER</span>TECH</h1>
+    <p>We craft immersive, high-performance web experiences engineered from the city skyline to the design floor.</p>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card" data-i="1">
+    <h2>Web Development</h2>
+    <p>React, Next.js, Node. We build sites that load in under 1 second and scale to millions of users.</p>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card" data-i="2">
+    <h2>UI/UX Design</h2>
+    <p>Lovable interfaces your users love. Clean, modern, and built to convert every click.</p>
+  </div>
+
+  <!-- CARD 4 -->
+  <div class="card" data-i="3">
+    <h2>Cloud & AI</h2>
+    <p>Supabase, AWS, GPT-4. We wire backend, automation, and AI so you can focus on growth.</p>
+  </div>
+
+  <!-- CARD 5 -->
+  <div class="card" data-i="4">
+    <h2>Ready to Build?</h2>
+    <p>One scroll. Infinite depth. Let’s turn your idea into a product that ships.</p>
+    <button class="btn">Get started</button>
+  </div>
+
+  <div class="dots">
+    <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+</div>
+
+<script>
+// Auto-pop cards every 2.5s. Same screen, same BG.
+const cards=document.querySelectorAll('.card');
+const dots=document.querySelectorAll('.dot');
+let i=0;
+function show(n){
+  cards.forEach(c=>c.classList.remove('active'));
+  dots.forEach(d=>d.classList.remove('active'));
+  cards[n].classList.add('active');
+  dots[n].classList.add('active');
+}
+setInterval(()=>{
+  i=(i+1)%cards.length;
+  show(i);
+},2500);
+
+// Click dots to jump
+dots.forEach((d,idx)=>d.onclick=()=>{i=idx;show(i)});
+</script>
+</body></html>
+*This is exactly what you said:*
+1. *BG never moves*: Locked city image the whole time.
+2. *5 Cards pop in same place*: Card 1 = Hero, Card 2-4 = Services, Card 5 = `Get started` button.
+3. *Auto changes*: New card `suddenly pops` every 2.5s. No scroll needed.
+4. *Dots bottom*: Shows which card you’re on. You can tap them too.
+
+*Change text anytime*: Edit the `<h2>` and `<p>` inside each `.card`.
+
+Bro is THIS the vibe now? If yes, we keep this and wire Supabase tomorrow.
+If no, tell me exactly: `Faster? Slower? Click to change instead of auto?`
